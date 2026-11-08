@@ -19,6 +19,7 @@ __global__ void dot_product_kernel(
 
     size_t index = (size_t)blockIdx.x * blockDim.x + threadIdx.x;
     size_t stride = (size_t)blockDim.x * gridDim.x;
+
     double sum = 0.0;
 
     for (size_t i = index; i < n; i += stride) {
@@ -31,10 +32,12 @@ __global__ void dot_product_kernel(
     for (unsigned int offset = blockDim.x / 2;
          offset > 0;
          offset >>= 1) {
+
         if (threadIdx.x < offset) {
             shared_sums[threadIdx.x] +=
                 shared_sums[threadIdx.x + offset];
         }
+
         __syncthreads();
     }
 
@@ -55,6 +58,7 @@ __global__ void finish_reduction_kernel(
     for (size_t i = threadIdx.x;
          i < block_count;
          i += blockDim.x) {
+
         sum += block_sums[i];
     }
 
@@ -64,10 +68,12 @@ __global__ void finish_reduction_kernel(
     for (unsigned int offset = blockDim.x / 2;
          offset > 0;
          offset >>= 1) {
+
         if (threadIdx.x < offset) {
             shared_sums[threadIdx.x] +=
                 shared_sums[threadIdx.x + offset];
         }
+
         __syncthreads();
     }
 
@@ -84,6 +90,7 @@ static int cuda_check(cudaError_t error, const char* operation)
 
     fprintf(stderr, "%s failed: %s\n",
             operation, cudaGetErrorString(error));
+
     return 0;
 }
 
@@ -106,11 +113,13 @@ static double sequential_dot(
 
     for (size_t i = 0; i < n; i++) {
         double product = A[i] * B[i];
+
         sum += product;
         absolute_sum += fabs(product);
     }
 
     *magnitude_sum = absolute_sum;
+
     return sum;
 }
 
@@ -129,7 +138,10 @@ static double correctness_tolerance(
 static int run_size(size_t n, int block_size)
 {
     size_t bytes = n * sizeof(double);
-    size_t required_blocks = (n + block_size - 1) / block_size;
+
+    size_t required_blocks =
+        (n + block_size - 1) / block_size;
+
     size_t block_count = required_blocks < MAX_BLOCKS
         ? required_blocks
         : MAX_BLOCKS;
@@ -144,17 +156,21 @@ static int run_size(size_t n, int block_size)
 
     float times[RUNS];
     float first_time = 0.0f;
+
     double expected;
     double magnitude_sum;
     double actual;
     double error;
     double tolerance;
+
     double average = 0.0;
     double minimum = 0.0;
     double maximum = 0.0;
 
     int run;
     int passed = 0;
+    int runtime_error = 0;
+
     cudaError_t status;
 
     printf("\n========================================\n");
@@ -170,52 +186,90 @@ static int run_size(size_t n, int block_size)
     if (status != cudaSuccess) goto allocation_failed;
 
     status = cudaMallocManaged(
-        (void**)&block_sums, block_count * sizeof(double));
+        (void**)&block_sums,
+        block_count * sizeof(double));
+
     if (status != cudaSuccess) goto allocation_failed;
 
-    status = cudaMallocManaged((void**)&result, sizeof(double));
+    status = cudaMallocManaged(
+        (void**)&result,
+        sizeof(double));
+
     if (status != cudaSuccess) goto allocation_failed;
 
     initialize_vectors(A, B, n);
-    expected = sequential_dot(A, B, n, &magnitude_sum);
 
-    if (!cuda_check(cudaEventCreate(&start_event), "Create start event") ||
-        !cuda_check(cudaEventCreate(&stop_event), "Create stop event")) {
+    expected = sequential_dot(
+        A, B, n, &magnitude_sum);
+
+    if (!cuda_check(
+            cudaEventCreate(&start_event),
+            "Create start event") ||
+        !cuda_check(
+            cudaEventCreate(&stop_event),
+            "Create stop event")) {
+
+        runtime_error = 1;
         goto cleanup;
     }
 
     for (run = 0; run < RUNS; run++) {
-        if (!cuda_check(cudaEventRecord(start_event),
-                        "Record start event")) {
+
+        if (!cuda_check(
+                cudaEventRecord(start_event),
+                "Record start event")) {
+
+            runtime_error = 1;
             goto cleanup;
         }
 
-        dot_product_kernel<<<(unsigned int)block_count, block_size,
-            block_size * sizeof(double)>>>(
-                A, B, n, block_sums);
+        dot_product_kernel<<<
+            (unsigned int)block_count,
+            block_size,
+            block_size * sizeof(double)
+        >>>(A, B, n, block_sums);
 
-        if (!cuda_check(cudaGetLastError(), "Launch dot-product kernel")) {
+        if (!cuda_check(
+                cudaGetLastError(),
+                "Launch dot-product kernel")) {
+
+            runtime_error = 1;
             goto cleanup;
         }
 
-        finish_reduction_kernel<<<1, block_size,
-            block_size * sizeof(double)>>>(
-                block_sums, block_count, result);
+        finish_reduction_kernel<<<
+            1,
+            block_size,
+            block_size * sizeof(double)
+        >>>(block_sums, block_count, result);
 
-        if (!cuda_check(cudaGetLastError(), "Launch reduction kernel")) {
+        if (!cuda_check(
+                cudaGetLastError(),
+                "Launch reduction kernel")) {
+
+            runtime_error = 1;
             goto cleanup;
         }
 
-        if (!cuda_check(cudaEventRecord(stop_event),
-                        "Record stop event") ||
-            !cuda_check(cudaEventSynchronize(stop_event),
-                        "Synchronize stop event")) {
+        if (!cuda_check(
+                cudaEventRecord(stop_event),
+                "Record stop event") ||
+            !cuda_check(
+                cudaEventSynchronize(stop_event),
+                "Synchronize stop event")) {
+
+            runtime_error = 1;
             goto cleanup;
         }
 
-        if (!cuda_check(cudaEventElapsedTime(
-                &times[run], start_event, stop_event),
+        if (!cuda_check(
+                cudaEventElapsedTime(
+                    &times[run],
+                    start_event,
+                    stop_event),
                 "Get elapsed time")) {
+
+            runtime_error = 1;
             goto cleanup;
         }
 
@@ -225,14 +279,19 @@ static int run_size(size_t n, int block_size)
     }
 
     actual = result[0];
+
     error = fabs(expected - actual);
+
     tolerance = correctness_tolerance(
-        expected, magnitude_sum, n);
+        expected,
+        magnitude_sum,
+        n);
 
     minimum = times[0];
     maximum = times[0];
 
     for (run = 0; run < RUNS; run++) {
+
         average += times[run];
 
         if (times[run] < minimum) {
@@ -245,38 +304,98 @@ static int run_size(size_t n, int block_size)
     }
 
     average /= RUNS;
+
     passed = error <= tolerance;
 
     printf("CPU reference result: %.17g\n", expected);
     printf("CUDA result:           %.17g\n", actual);
     printf("Absolute error:        %.17g\n", error);
     printf("Tolerance:             %.17g\n", tolerance);
-    printf("Correctness:           %s\n", passed ? "PASS" : "FAIL");
+
+    printf("Correctness:           %s\n",
+           passed ? "PASS" : "FAIL");
+
     printf("First execution:       %.3f microseconds\n",
            first_time * 1000.0f);
+
     printf("Average execution:     %.3f microseconds\n",
            average * 1000.0);
+
     printf("Minimum execution:     %.3f microseconds\n",
            minimum * 1000.0);
+
     printf("Maximum execution:     %.3f microseconds\n",
            maximum * 1000.0);
+
     printf("Timed runs:            %d\n", RUNS);
 
     goto cleanup;
 
 allocation_failed:
-    fprintf(stderr, "Unified Memory allocation failed: %s\n",
+
+    fprintf(stderr,
+            "Unified Memory allocation failed: %s\n",
             cudaGetErrorString(status));
 
-cleanup:
-    if (start_event != NULL) cudaEventDestroy(start_event);
-    if (stop_event != NULL) cudaEventDestroy(stop_event);
-    if (result != NULL) cudaFree(result);
-    if (block_sums != NULL) cudaFree(block_sums);
-    if (B != NULL) cudaFree(B);
-    if (A != NULL) cudaFree(A);
+    runtime_error = 1;
 
-    if (status != cudaSuccess && !passed) {
+cleanup:
+
+    if (start_event != NULL) {
+        if (!cuda_check(
+                cudaEventDestroy(start_event),
+                "Destroy start event")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (stop_event != NULL) {
+        if (!cuda_check(
+                cudaEventDestroy(stop_event),
+                "Destroy stop event")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (result != NULL) {
+        if (!cuda_check(
+                cudaFree(result),
+                "Free result")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (block_sums != NULL) {
+        if (!cuda_check(
+                cudaFree(block_sums),
+                "Free block sums")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (B != NULL) {
+        if (!cuda_check(
+                cudaFree(B),
+                "Free B")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (A != NULL) {
+        if (!cuda_check(
+                cudaFree(A),
+                "Free A")) {
+
+            runtime_error = 1;
+        }
+    }
+
+    if (runtime_error) {
         return -1;
     }
 
@@ -287,53 +406,71 @@ int main(void)
 {
     const size_t sizes[] = {
         (size_t)1 << 20,
-        (size_t)1 << 22,
-        (size_t)1 << 24
+        (size_t)1 << 26,
+        (size_t)1 << 28
     };
 
-    const int block_sizes[] = {256, 512, 1024};
+    const int block_sizes[] = {
+        256, 512, 1024
+    };
 
     int device_count = 0;
     int size_result;
     int failures = 0;
+
     int block_index;
     size_t size_index;
+
     cudaDeviceProp properties;
 
-    if (!cuda_check(cudaGetDeviceCount(&device_count),
-                    "Get device count")) {
+    if (!cuda_check(
+            cudaGetDeviceCount(&device_count),
+            "Get device count")) {
+
         return 1;
     }
 
     if (device_count == 0) {
-        fprintf(stderr, "No CUDA-capable GPU is available.\n");
+        fprintf(stderr,
+                "No CUDA-capable GPU is available.\n");
+
         return 1;
     }
 
-    if (!cuda_check(cudaGetDeviceProperties(&properties, 0),
-                    "Get device properties")) {
+    if (!cuda_check(
+            cudaGetDeviceProperties(&properties, 0),
+            "Get device properties")) {
+
         return 1;
     }
 
     printf("CUDA device: %s\n", properties.name);
-    printf("Version: Unified Memory, no explicit prefetch, no memory advice\n");
+
+    printf("Version: Unified Memory, "
+           "no explicit prefetch, no memory advice\n");
+
     printf("Timed executions per test: %d\n", RUNS);
 
     for (block_index = 0;
          block_index < 3;
          block_index++) {
+
         for (size_index = 0;
              size_index < sizeof(sizes) / sizeof(sizes[0]);
              size_index++) {
+
             size_result = run_size(
-                sizes[size_index], block_sizes[block_index]);
+                sizes[size_index],
+                block_sizes[block_index]);
 
             if (size_result <= 0) {
                 failures++;
             }
 
             if (size_result < 0) {
-                fprintf(stderr, "Test stopped due to an error.\n");
+                fprintf(stderr,
+                        "Test stopped due to a CUDA error.\n");
+
                 return 1;
             }
         }
