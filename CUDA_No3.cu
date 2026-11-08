@@ -1,3 +1,4 @@
+
 %%writefile benchmark.cu
 #include <cuda_runtime.h>
 #include <float.h>
@@ -322,19 +323,61 @@ allocation_failed:
             cudaGetErrorString(status));
 
 cleanup:
-    if (prefetch_start_event != NULL)
-        cudaEventDestroy(prefetch_start_event);
-    if (prefetch_stop_event != NULL)
-        cudaEventDestroy(prefetch_stop_event);
-    if (start_event != NULL)
-        cudaEventDestroy(start_event);
-    if (stop_event != NULL)
-        cudaEventDestroy(stop_event);
+    if (prefetch_start_event != NULL) {
+        status = cudaEventDestroy(prefetch_start_event);
+        if (!cuda_check(status, "Destroy prefetch start event")) {
+            outcome = -1;
+        }
+    }
 
-    if (result != NULL) cudaFree(result);
-    if (block_sums != NULL) cudaFree(block_sums);
-    if (B != NULL) cudaFree(B);
-    if (A != NULL) cudaFree(A);
+    if (prefetch_stop_event != NULL) {
+        status = cudaEventDestroy(prefetch_stop_event);
+        if (!cuda_check(status, "Destroy prefetch stop event")) {
+            outcome = -1;
+        }
+    }
+
+    if (start_event != NULL) {
+        status = cudaEventDestroy(start_event);
+        if (!cuda_check(status, "Destroy start event")) {
+            outcome = -1;
+        }
+    }
+
+    if (stop_event != NULL) {
+        status = cudaEventDestroy(stop_event);
+        if (!cuda_check(status, "Destroy stop event")) {
+            outcome = -1;
+        }
+    }
+
+    if (result != NULL) {
+        status = cudaFree(result);
+        if (!cuda_check(status, "Free result")) {
+            outcome = -1;
+        }
+    }
+
+    if (block_sums != NULL) {
+        status = cudaFree(block_sums);
+        if (!cuda_check(status, "Free block sums")) {
+            outcome = -1;
+        }
+    }
+
+    if (B != NULL) {
+        status = cudaFree(B);
+        if (!cuda_check(status, "Free B")) {
+            outcome = -1;
+        }
+    }
+
+    if (A != NULL) {
+        status = cudaFree(A);
+        if (!cuda_check(status, "Free A")) {
+            outcome = -1;
+        }
+    }
 
     return outcome;
 }
