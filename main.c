@@ -1,5 +1,4 @@
-
-%%writefile main.c
+%% writefile main.c
 #define _POSIX_C_SOURCE 199309L
 
 #include <stdio.h>
@@ -11,7 +10,7 @@
 
 #define RUNS 30
 
-typedef double (*DotKernel)(const double *, const double *, size_t);
+typedef double (*DotKernel)(const double*, const double*, size_t);
 
 /* Vector sizes to test */
 static const size_t VECTOR_SIZES[] = {
@@ -23,7 +22,7 @@ static const size_t VECTOR_SIZES[] = {
 #define NUM_SIZES (sizeof(VECTOR_SIZES) / sizeof(VECTOR_SIZES[0]))
 
 /* Sequential C dot product */
-double dot_c(const double *A, const double *B, size_t n)
+double dot_c(const double* A, const double* B, size_t n)
 {
     double sum = 0.0;
 
@@ -35,7 +34,7 @@ double dot_c(const double *A, const double *B, size_t n)
 }
 
 /* Initialize vectors */
-void initialize_vectors(double *A, double *B, size_t n)
+void initialize_vectors(double* A, double* B, size_t n)
 {
     for (size_t i = 0; i < n; i++) {
         A[i] = sin((double)i * 0.001);
@@ -69,10 +68,10 @@ double get_time(void)
 }
 
 /* Run and measure the CPU kernel */
-void time_kernel(
+int time_kernel(
     DotKernel kernel,
-    const double *A,
-    const double *B,
+    const double* A,
+    const double* B,
     size_t n,
     double expected)
 {
@@ -89,7 +88,6 @@ void time_kernel(
         result = kernel(A, B, n);
 
         double end = get_time();
-
         double elapsed = end - start;
 
         sink = result;
@@ -109,6 +107,7 @@ void time_kernel(
 
     double error = fabs(expected - result);
     double tolerance = get_tolerance(expected);
+    int passed = check_result(expected, result);
 
     printf("CPU reference result: %.15f\n", expected);
     printf("CPU result:           %.15f\n", result);
@@ -116,26 +115,29 @@ void time_kernel(
     printf("Tolerance:            %.15e\n", tolerance);
 
     printf("Correctness:          %s\n",
-           check_result(expected, result) ? "PASS" : "FAIL");
+        passed ? "PASS" : "FAIL");
 
     printf("Average execution time:  %.3f microseconds\n",
-           (total / RUNS) * 1e6);
+        (total / RUNS) * 1e6);
 
     printf("Minimum execution time:  %.3f microseconds\n",
-           minimum * 1e6);
+        minimum * 1e6);
 
     printf("Maximum execution time:  %.3f microseconds\n",
-           maximum * 1e6);
+        maximum * 1e6);
 
     printf("Timed executions:     %d\n", RUNS);
+
+    return passed;
 }
 
 /* Run one vector-size test */
-void run_test(size_t n)
+int run_test(size_t n)
 {
-    double *A;
-    double *B;
+    double* A = NULL;
+    double* B = NULL;
     double expected;
+    int passed;
 
     printf("\n========================================\n");
     printf("Vector size: %zu\n", n);
@@ -143,17 +145,17 @@ void run_test(size_t n)
 
     if (n > SIZE_MAX / sizeof(double)) {
         printf("Vector size is too large.\n");
-        return;
+        return 0;
     }
 
-    A = (double *)malloc(n * sizeof(double));
-    B = (double *)malloc(n * sizeof(double));
+    A = (double*)malloc(n * sizeof(double));
+    B = (double*)malloc(n * sizeof(double));
 
     if (A == NULL || B == NULL) {
         printf("Memory allocation failed.\n");
         free(A);
         free(B);
-        return;
+        return 0;
     }
 
     /* Initialization is outside the timed kernel */
@@ -163,26 +165,39 @@ void run_test(size_t n)
     expected = dot_c(A, B, n);
 
     /* Execute 30 timed runs */
-    time_kernel(dot_c, A, B, n, expected);
+    passed = time_kernel(dot_c, A, B, n, expected);
 
     free(A);
     free(B);
+
+    return passed;
 }
 
 int main(void)
 {
+    int all_passed = 1;
+
     printf("Sequential C Baseline: Vector Dot Product\n");
     printf("Initialization: A[i] = sin(i * 0.001), "
-           "B[i] = cos(i * 0.002)\n");
+        "B[i] = cos(i * 0.002)\n");
     printf("Timed executions per vector size: %d\n", RUNS);
 
     for (size_t i = 0; i < NUM_SIZES; i++) {
-        run_test(VECTOR_SIZES[i]);
+        if (!run_test(VECTOR_SIZES[i])) {
+            all_passed = 0;
+        }
     }
 
     printf("\n========================================\n");
-    printf("All tests completed.\n");
+
+    if (all_passed) {
+        printf("All tests completed successfully.\n");
+    }
+    else {
+        printf("One or more tests failed.\n");
+    }
+
     printf("========================================\n");
 
-    return 0;
+    return all_passed ? EXIT_SUCCESS : EXIT_FAILURE;
 }
