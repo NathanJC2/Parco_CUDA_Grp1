@@ -474,7 +474,15 @@ Another disadvantage is that SIMD depends on the CPU's vector-processing capabil
 </p>
 
 ### D. Advantages of SIMT
+<p align="justify">
+One of the main advantages of SIMT is its ability to execute many threads in parallel, allowing the GPU to process large amounts of data efficiently. In the dot product implementation, each CUDA thread handles different elements of the input vectors, allowing multiple multiplication and addition operations to be performed simultaneously. This makes SIMT suitable for highly parallel workloads such as large-scale vector computations.
+</p>
+
 ### E. Disadvantages of SIMT
+<p align="justify">
+Despite its performance advantages, SIMT also has some disadvantages. GPU programming requires additional considerations, such as selecting an appropriate block size and managing memory transfers between the CPU and GPU. The performance can also vary depending on the number of threads per block and the memory optimization techniques used. 
+</p>
+
 ### F. Comparison of SIMD and SIMT for This Project
 
 ## Conclusion
