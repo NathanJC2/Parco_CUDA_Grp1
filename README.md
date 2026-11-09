@@ -447,6 +447,14 @@ Another realization was that increasing the CUDA block size does not always impr
 
 ## SIMD vs. SIMT in the Dot Product Use Case
 ### A. Differences Between SIMD and SIMT
+<p align="justify">
+SIMD (Single Instruction, Multiple Data) and SIMT (Single Instruction, Multiple Threads) both allow multiple data elements to be processed in parallel, but they differ in how they do it. SIMD uses a single instruction to perform the same operation on multiple data elements at once, while SIMT uses multiple threads that execute the same operation on different data.
+</p>
+
+<p align="justify">
+In our dot-product project, SIMD can process multiple pairs of vector elements using CPU vector instructions, while SIMT uses multiple CUDA threads to calculate the products of corresponding elements in the two vectors. The partial results are then combined to get the final dot product. Both approaches help improve performance by allowing multiple elements to be processed in parallel.
+</p>
+
 ### B. Advantages of SIMD
 ### C. Disadvantages of SIMD
 ### D. Advantages of SIMT
