@@ -407,6 +407,33 @@ Compared with the C/C++ baseline, x86-64 Assembly achieved a speedup of 2.01x, w
 | CUDA Prefetch + Page Creation + Mem Advice | 256 | 13.25x | 28.55x | 27.84x |
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 7.82x | 28.77x | 28.01x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 4.25x | 28.72x | 28.07x |
+<p align="justify">
+The results show that all optimized implementations achieved better performance than the Sequential C baseline across all three vector sizes. Among the CPU implementations, the x86-64 SIMD versions consistently outperformed the standard x86-64 Assembly implementation. SIMD YMM achieved the highest speedup among the CPU versions for the 2<sup>20</sup> vector size, with 3.66x, while SIMD XMM achieved 2.34x. However, as the vector size increased, the performance advantage of SIMD YMM gradually decreased, reaching 2.96x for 2<sup>28</sup>. This suggests that the performance benefits of SIMD implementations can vary depending on the amount of data being processed.
+</p>
+
+<p align="justify">
+For the CUDA Unified Memory implementation, block size 512 consistently achieved the highest speedup among the three tested block sizes. It recorded 6.95x, 10.15x, and 9.69x for vector sizes 2<sup>20</sup>, 2<sup>26</sup>, and 2<sup>28</sup>, respectively. This indicates that block size 512 was the most effective configuration for the basic Unified Memory implementation among the tested configurations.
+</p>
+
+<p align="justify">
+A considerable improvement was observed after introducing grid-stride loops and prefetching. The CUDA Prefetch implementation achieved its highest speedup of 17.33x using block size 256 for the 2<sup>20</sup> vector size. For the larger vector sizes, all three block sizes achieved speedups of approximately 28x. This demonstrates that prefetching significantly improved kernel performance compared to the basic Unified Memory implementation, particularly for the smaller vector size.
+</p>
+
+<p align="justify">
+When page creation was added to the prefetching implementation, the results remained relatively close to those of the prefetch-only version for the larger vector sizes. The highest speedups were achieved using block size 512, recording 28.80x for 2<sup>26</sup> and 28.01x for 2<sup>28</sup>. However, for the 2<sup>20</sup> vector size, performance decreased compared to prefetching alone. A similar trend was observed when memory advice was added. Although the implementation still achieved speedups of approximately 28x for the larger vector sizes, it did not consistently outperform the prefetch-only implementation.
+</p>
+
+<p align="justify">
+Another observation is that the best-performing block size varied depending on the CUDA implementation and vector size. For Unified Memory, block size 512 consistently performed best. For the prefetch-only implementation, block size 256 achieved the highest speedup for 2<sup>20</sup>, while block size 512 performed best for 2<sup>26</sup> and 2<sup>28</sup>. The versions with page creation and memory advice also showed different results depending on the vector size. These findings indicate that increasing the block size does not automatically improve performance and that the most suitable configuration depends on the implementation and workload.
+</p>
+
+<p align="justify">
+Overall, the CUDA Prefetch implementation delivered the strongest performance for the tested configurations, achieving the highest speedup of 28.56x with block size 512 for the 2<sup>26</sup> vector size. It also achieved the highest speedup for the 2<sup>20</sup> vector size at 17.33x using block size 256. For 2<sup>28</sup>, the highest speedup was 28.17x, achieved by the Prefetch + Page Creation implementation with block size 1024. These results demonstrate the performance advantages of GPU-based parallel processing and show that the effectiveness of memory management techniques and block size configurations varies with vector size.
+</p>
+
+<p align="justify">
+It is important to note that the reported CUDA speedups are based on kernel execution times only. They exclude page creation, prefetching, and memory advice overhead. Therefore, these values represent the relative performance of the GPU computation and should not be interpreted as the speedup of the complete end-to-end process.
+</p>
 
 ## Problems Encountered, Solutions, and Key Insights
 ### A. Problems Encountered
