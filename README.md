@@ -8,14 +8,33 @@
 4. Tamayo, Chelsea Nichole
    
 ### Project Specifications
+- Programming Language: C/C++ and CUDA C/C++
+- Development Environment: Google Colab
+- GPU Used: NVIDIA Tesla T4
+- Objective: To compare the performance of a C/C++ dot product program with four CUDA implementations using different optimization techniques.
+- Vector Initialization:
+  - A[i] = sin(i * 0.001)
+  - B[i] = cos(i * 0.002)
+- Vector Sizes: 2²⁴, 2²⁶, and 2²⁸ elements
+- Block Sizes: 256, 512, and 1024 threads
+- Number of Runs: 30 runs per configuration
+- Correctness Check: The CUDA results are compared with the C/C++ reference results to check if they are correct.
+- Profiling Tools: NVIDIA Nsight Systems and NVIDIA Nsight Compute
+  
+Program Variants:
+- Variant 1: C/C++ baseline
+- Variant 2: CUDA grid-stride loop without prefetching or memory advice
+- Variant 3: CUDA grid-stride loop with prefetching
+- Variant 4: CUDA grid-stride loop with page creation and prefetching
+- Variant 5: CUDA grid-stride loop with page creation, prefetching, and memory advice
 
 ### AI Usage Declaration
 
 ## I. Program Output and Correctness Checks
-// put screenshots here
+// put screenshots here //
   
 ## II. Nsight Systems Profiling for All CUDA Variants
-// put screenshots here
+// put screenshots here //
 
 ## III. Comparative Execution-Time Analysis
 ### A. Results for 2²⁴ Elements
