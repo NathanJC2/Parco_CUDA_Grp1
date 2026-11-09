@@ -22,11 +22,11 @@
 - Profiling Tools: NVIDIA Nsight Systems and NVIDIA Nsight Compute
   
 Program Variants:
-- Variant 1: C/C++ baseline
-- Variant 2: CUDA grid-stride loop without prefetching or memory advice
-- Variant 3: CUDA grid-stride loop with prefetching
-- Variant 4: CUDA grid-stride loop with page creation and prefetching
-- Variant 5: CUDA grid-stride loop with page creation, prefetching, and memory advice
+- Variant 1: C/C++ program version
+- Variant 2: CUDA program version using a grid-stride loop without prefetch and memory advice
+- Variant 3: CUDA program version using a grid-stride loop with prefetch but without page creation and memory advise
+- Variant 4: CUDA program version using a grid-stride loop with prefetch and page creation but without memory advise
+- Variant 5: CUDA program version using a grid-stride loop with prefetch, page creation, and memory advice
 
 ### AI Usage Declaration
 
