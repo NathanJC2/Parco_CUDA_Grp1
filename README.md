@@ -271,6 +271,26 @@ Compared with Variant 2, the number of recorded host-to-device transfers decreas
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 180.042 | 176.160 | 182.752 | 7.82x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 331.567 | 319.488 | 395.424 | 4.25x |
 
+<p align="justify">
+The results show that all optimized implementations performed better than the Sequential C baseline. The C variant recorded an average execution time of <strong>1,407.891 microseconds (μs)</strong> or <strong>1.407 milliseconds (ms)</strong>. Among the CPU implementations, the best performance was achieved by the <strong>x86-64 SIMD YMM</strong> version, which recorded an average execution time of <strong>385.100 μs</strong> and a speedup of <strong>3.66x</strong>. This was followed by <strong>SIMD XMM</strong> at <strong>602.657 μs (2.34x)</strong> and the standard <strong>x86-64 Assembly</strong> implementation at <strong>893.823 μs (1.58x)</strong>.
+</p>
+
+<p align="justify">
+For the CUDA implementations, the <strong>Unified Memory</strong> version with a block size of <strong>512</strong> achieved the lowest average execution time of <strong>202.532 μs</strong>, with a speedup of <strong>6.95x</strong> compared to the C baseline. However, the best overall kernel performance, recording the lowest average execution time of <strong>81.233 μs</strong> and the highest speedup of <strong>17.33x</strong>, was obtained from the CUDA version using <strong>grid-stride loops with prefetching and a block size of 256</strong>. This indicates that prefetching aided GPU execution performance by making the required memory available before kernel execution.
+</p>
+
+<p align="justify">
+After page creation was added, the fastest configuration among the CUDA versions was still the block size of <strong>256</strong>, with an average execution time of <strong>103.938 μs</strong> and a speedup of <strong>13.55x</strong>. Similarly, the implementation with both page creation and memory advice achieved its best result using a block size of <strong>256</strong>, recording <strong>106.269 μs</strong> and a speedup of <strong>13.25x</strong>. Although both versions remained faster than the other CPU implementations, their average kernel execution times were higher than those of the prefetch-only version. This suggests that adding page creation and memory advice did not provide an additional kernel execution-time benefit for this vector size.
+</p>
+
+<p align="justify">
+Furthermore, the results suggest that smaller block sizes were more suitable for processing this particular vector size under the tested configurations. Increasing the block size did not necessarily improve performance, as the results showed that larger block sizes generally recorded higher average execution times in the prefetch-based implementations.
+</p>
+
+<p align="justify">
+The comparisons are based on <strong>GPU kernel execution times</strong> and exclude the overhead associated with page creation and prefetching. Therefore, the reported speedups represent the performance of the GPU computation itself rather than the total execution time of the complete process, which also involves memory initialization and preparation.
+</p>
+
 ## Performance Results – 2^26 Elements (67,108,864)
 
 | Kernel | Block Size | Average Time (μs) | Minimum Time (μs) | Maximum Time (μs) | Speedup vs C |
