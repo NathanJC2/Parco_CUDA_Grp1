@@ -58,7 +58,17 @@ CUDA Variant 3: Grid-Stride Loop with Prefetching
 
 Figure 3. Correctness checks and execution results for CUDA Variant 3 using a grid-stride loop with prefetching.
 
-<!-- Insert Variant 3 screenshots here -->
+<p>
+  <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/d6ff9d30-4afd-43e7-8789-ff1ef069fc35" />
+</p>
+
+<p>
+  <img width="683" height="1077" alt="image" src="https://github.com/user-attachments/assets/47fffbd4-a2d0-497a-af7f-fbe02af041c5" />
+</p>
+
+<p>
+  <img width="680" height="1078" alt="image" src="https://github.com/user-attachments/assets/3e6c8e71-5f00-4d13-b600-9feb5f82288e" />
+</p>
 
 CUDA Variant 4: Grid-Stride Loop with Page Creation and Prefetching
 
