@@ -524,4 +524,11 @@ Overall, SIMD and SIMT can both be useful for parallel computations, but their p
 </p>
 
 ## Conclusion
+<p align="justify">
+This project compared the performance of Sequential C/C++, x86-64 Assembly, SIMD, and CUDA implementations of the dot product using different vector sizes and optimization techniques. All implementations passed the correctness checks, confirming that their results were within the accepted tolerance.</p>
 
+<p align="justify">
+The results showed that SIMD YMM performed best among the CPU implementations, while CUDA achieved significantly higher speedups. The highest speedup was <strong>28.80x</strong>, achieved by the CUDA Prefetch + Page Creation implementation using a block size of 512 for the 2<sup>26</sup> vector size. The experiments also showed that adding more memory optimizations does not always improve kernel performance and that the best block size depends on the implementation and vector size.</p>
+
+<p align="justify">
+Overall, the project demonstrated the benefits of CPU and GPU parallel processing, as well as the importance of selecting suitable optimization techniques and configurations. It also highlighted the need to consider memory preparation overhead separately from kernel execution time when evaluating GPU performance.</p>
