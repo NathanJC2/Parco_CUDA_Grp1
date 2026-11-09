@@ -107,11 +107,11 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 </p>
 
 <p>
-  
+   <img width="655" height="1065" alt="image" src="https://github.com/user-attachments/assets/eb47c9bb-6f09-436e-98d1-790e52f25db4" />
 </p>
 
 <p>
-   
+   <img width="652" height="1078" alt="image" src="https://github.com/user-attachments/assets/103e3950-58b5-471c-a20d-3c7eca2df401" />
 </p>
 
 <p>
