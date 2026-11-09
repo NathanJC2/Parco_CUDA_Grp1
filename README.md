@@ -36,7 +36,9 @@ C/C++ Baseline
 
 Figure 1. C/C++ baseline output showing execution times and correctness results for the tested vector sizes.
 
-<img width="678" height="1078" alt="image" src="https://github.com/user-attachments/assets/5a0c0fd0-f775-4b0c-95dc-03d428ce0b56" />
+<p>
+<img width="648" height="1021" alt="image" src="https://github.com/user-attachments/assets/9ddf4273-7764-4714-a588-7229d05c1d5a" />
+</p>
 
 CUDA Variant 2: Grid-Stride Loop
 
