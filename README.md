@@ -74,7 +74,21 @@ CUDA Variant 4: Grid-Stride Loop with Page Creation and Prefetching
 
 Figure 4. Correctness checks and execution results for CUDA Variant 4 using page creation and prefetching.
 
-<!-- Insert Variant 4 screenshots here -->
+<p>
+  <img width="680" height="1070" alt="image" src="https://github.com/user-attachments/assets/0a9d56f4-0565-4cf2-91cc-784cdd644e93" />
+</p>
+
+<p>
+  <img width="688" height="1078" alt="image" src="https://github.com/user-attachments/assets/3006299a-7c45-456f-b280-b0426aa58a56" />
+</p>
+
+<p>
+  <img width="677" height="1040" alt="image" src="https://github.com/user-attachments/assets/81dcca92-0f8e-4a3b-a6d7-172607bfbed2" />
+</p>
+
+<p>
+   <img width="680" height="1078" alt="image" src="https://github.com/user-attachments/assets/49327a88-895b-4a59-ae2d-7c92db4972dc" />
+</p>
 
 CUDA Variant 5: Grid-Stride Loop with Page Creation, Prefetching, and Memory Advice
 
