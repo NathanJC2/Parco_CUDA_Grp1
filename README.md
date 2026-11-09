@@ -410,10 +410,40 @@ Compared with the C/C++ baseline, x86-64 Assembly achieved a speedup of 2.01x, w
 
 ## Problems Encountered, Solutions, and Key Insights
 ### A. Problems Encountered
-### B. Solutions Implemented
-### C. Unique Methodology
-### D. Key Insights and Aha Moments
+<p align="justify">
+One of the main challenges encountered during the project was implementing and comparing the different versions of the dot product algorithm. Each implementation used a different approach to processing the data, particularly when working with CPU assembly, SIMD instructions, and CUDA. Understanding how to properly configure these implementations and ensuring that they produced correct results required testing and debugging.
+</p>
 
+<p align="justify">
+Another challenge was benchmarking the implementations fairly. Since the project involved different vector sizes and CUDA block sizes, multiple executions were necessary to obtain average execution times and compare their performance. We also had to distinguish between kernel execution time and the additional overhead involved in memory preparation, such as page creation and prefetching.
+</p>
+
+### B. Solutions Implemented
+<p align="justify">
+To address these challenges, we tested each implementation using the same input data and vector sizes to maintain consistency. We also performed 30 executions for each configuration and used the average execution time to compare performance.
+</p>
+
+<p align="justify">
+For the CUDA implementations, we tested different block sizes (256, 512, and 1024) and checked whether the configurations produced correct results. We also measured page creation and prefetching separately from kernel execution to avoid confusing memory preparation overhead with GPU computation time.
+</p>
+
+### C. Unique Methodology
+<p align="justify">
+Our methodology involved progressively introducing different optimization techniques to the CUDA implementation. We started with a basic Unified Memory implementation, then introduced grid-stride loops and prefetching. Afterward, we added page creation and memory advice to observe how each change affected kernel performance.
+</p>
+
+<p align="justify">
+We also compared these GPU implementations against Sequential C, x86-64 Assembly, and SIMD implementations using XMM and YMM registers. By testing the same vector sizes across the different implementations, we could compare their performance under consistent conditions.
+</p>
+
+### D. Key Insights and Aha Moments
+<p align="justify">
+One of the main things learned from this project was that adding more optimizations does not necessarily result in better performance. For example, the prefetch-only CUDA implementation achieved better kernel execution times than the versions that included additional page creation and memory advice for the tested vector size.
+</p>
+
+<p align="justify">
+Another realization was that increasing the CUDA block size does not always improve performance. In our results, a block size of 256 generally performed better for the prefetch-based implementations at the tested vector size.
+</p>
 ## SIMD vs. SIMT in the Dot Product Use Case
 ### A. Differences Between SIMD and SIMT
 ### B. Advantages of SIMD
