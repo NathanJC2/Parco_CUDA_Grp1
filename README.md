@@ -137,9 +137,11 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 
 <img width="1782" height="581" alt="image" src="https://github.com/user-attachments/assets/1cb73d2e-4f9c-44dc-8efe-c504223007c7" />
 
+<p>
 Based on the Nsight Systems output, cudaEventSynchronize accounted for most of the CUDA API time, followed by cudaFree and cudaMallocManaged. The GPU kernel summary also shows that dot_product_kernel took almost all of the recorded kernel execution time, while finish_reduction_kernel took very little time in comparison.
 
 The memory-operation summary recorded 530,475 host-to-device transfers, with a total transfer size of 14,732.079 MB. This shows that Variant 2 had a large amount of memory-transfer activity. Since this version does not use prefetching, the results provide a useful basis for comparing it with the other variants that use additional memory-management techniques.
+</p>
 
 ### Variant 3
 
