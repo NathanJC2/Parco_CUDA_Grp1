@@ -151,6 +151,20 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 
 <img width="1771" height="582" alt="image" src="https://github.com/user-attachments/assets/dab2c3b9-9671-4e70-b44e-36be7aecc0b2" />
 
+### Variant 4
+
+**Figure 12.** OS Runtime Summary for Variant 4.
+
+<img width="1501" height="800" alt="image" src="https://github.com/user-attachments/assets/e389bdce-027d-4899-b731-2ce5193df657" />
+
+**Figure 13.** CUDA API Summary for Variant 4.
+
+<img width="1492" height="471" alt="image" src="https://github.com/user-attachments/assets/e5f9b3cd-f394-4166-9168-fa3aac438533" />
+
+**Figure 14.** GPU Kernel and Memory-Transfer Statistics for Variant 4.
+
+<img width="1771" height="581" alt="image" src="https://github.com/user-attachments/assets/9d286a57-a4b1-4d92-8ec6-3d825d5499c8" />
+
 ## Comparative Execution-Time Analysis
 ### A. Results for 2²⁴ Elements
 | Kernel | Block Size | Average Time (μs) | Speedup vs C |
