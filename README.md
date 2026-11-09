@@ -17,7 +17,7 @@
 - Vector Initialization:
   - A[i] = sin(i * 0.001)
   - B[i] = cos(i * 0.002)
-- Vector Sizes: 2²⁴, 2²⁶, and 2²⁸ elements
+- Vector Sizes: 2²⁰, 2²⁶, and 2²⁸ elements
 - Block Sizes: 256, 512, and 1024 threads
 - Number of Runs: 30 runs per configuration
 - Correctness Check: The CUDA results are compared with the C/C++ reference results to check if they are correct.
