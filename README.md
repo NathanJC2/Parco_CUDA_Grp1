@@ -47,15 +47,15 @@ The group used ChatGPT mainly to help us understand CUDA concepts and how the di
 **Figure 2.** Correctness checks and execution results
 
 <p>
-  <img width="670" height="1078" alt="image" src="https://github.com/user-attachments/assets/480ca519-e880-419c-b7e0-1f747d6bfc95" />
+  <img width="660" height="1045" alt="image" src="https://github.com/user-attachments/assets/6b4af11b-91dc-4296-aa4d-88d8560ce804" />
 </p>
 
 <p>
-  <img width="668" height="1045" alt="image" src="https://github.com/user-attachments/assets/c0c39db3-322d-4747-9cd6-a16102235a40" />
+  <img width="665" height="1041" alt="image" src="https://github.com/user-attachments/assets/788baaf6-f5cc-4d36-a272-012eb048472f" />
 </p>
 
 <p>
-  <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/6490c6de-caf8-428e-bd6e-6b52c81d80da" />
+  ![Uploading image.png…]()
 </p>
 
 ### Variant 3: Grid-stride loop with prefetch but without page creation and memory advise
@@ -63,15 +63,15 @@ The group used ChatGPT mainly to help us understand CUDA concepts and how the di
 **Figure 3.** Correctness checks and execution results
 
 <p>
-  <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/d6ff9d30-4afd-43e7-8789-ff1ef069fc35" />
+  <img width="661" height="1037" alt="image" src="https://github.com/user-attachments/assets/7e7ab1d9-0aec-465f-8a9e-294c39e9c51f" />
 </p>
 
 <p>
-  <img width="683" height="1077" alt="image" src="https://github.com/user-attachments/assets/47fffbd4-a2d0-497a-af7f-fbe02af041c5" />
+  <img width="661" height="1032" alt="image" src="https://github.com/user-attachments/assets/49b30d72-0e50-401b-9089-dda246977b49" />
 </p>
 
 <p>
-  <img width="680" height="1078" alt="image" src="https://github.com/user-attachments/assets/3e6c8e71-5f00-4d13-b600-9feb5f82288e" />
+  <img width="665" height="1078" alt="image" src="https://github.com/user-attachments/assets/f8489c7b-7f89-4e71-a1be-904d1cf6504a" />
 </p>
 
 ### Variant 4: Grid-stride loop with prefetch and page creation but without memory advise
