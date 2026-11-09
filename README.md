@@ -127,8 +127,64 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 
 ## Comparative Execution-Time Analysis
 ### A. Results for 2²⁴ Elements
+| Kernel | Block Size | Average Time (μs) | Speedup vs C |
+|---|---:|---:|---:|
+| C (Baseline) | - | 1407.891 | 1.00x |
+| x86-64 Assembly | - | 893.823 | 1.58x |
+| x86-64 SIMD XMM | - | 602.657 | 2.34x |
+| x86-64 SIMD YMM | - | 385.100 | 3.66x |
+| CUDA Unified | 256 | 348.353 | 4.04x |
+| CUDA Unified | 512 | 202.532 | 6.95x |
+| CUDA Unified | 1024 | 290.704 | 4.84x |
+| CUDA Prefetch | 256 | 81.233 | 17.33x |
+| CUDA Prefetch | 512 | 94.435 | 14.91x |
+| CUDA Prefetch | 1024 | 171.421 | 8.21x |
+| CUDA Prefetch + Page Creation | 256 | 103.938 | 13.55x |
+| CUDA Prefetch + Page Creation | 512 | 172.268 | 8.17x |
+| CUDA Prefetch + Page Creation | 1024 | 363.194 | 3.88x |
+| CUDA Prefetch + Page Creation + Mem Advice | 256 | 106.269 | 13.25x |
+| CUDA Prefetch + Page Creation + Mem Advice | 512 | 180.042 | 7.82x |
+| CUDA Prefetch + Page Creation + Mem Advice | 1024 | 331.567 | 4.25x |
+
 ### B. Results for 2²⁶ Elements
+| Kernel | Block Size | Average Time (μs) | Speedup vs C |
+|---|---:|---:|---:|
+| C (Baseline) | - | 113629.128 | 1.00x |
+| x86-64 Assembly | - | 55515.197 | 2.05x |
+| x86-64 SIMD XMM | - | 39002.567 | 2.91x |
+| x86-64 SIMD YMM | - | 34083.980 | 3.33x |
+| CUDA Unified | 256 | 12368.990 | 9.19x |
+| CUDA Unified | 512 | 11199.752 | 10.15x |
+| CUDA Unified | 1024 | 12232.219 | 9.29x |
+| CUDA Prefetch | 256 | 4007.925 | 28.35x |
+| CUDA Prefetch | 512 | 3978.243 | 28.56x |
+| CUDA Prefetch | 1024 | 4070.829 | 27.91x |
+| CUDA Prefetch + Page Creation | 256 | 3980.043 | 28.55x |
+| CUDA Prefetch + Page Creation | 512 | 3945.934 | 28.80x |
+| CUDA Prefetch + Page Creation | 1024 | 3956.501 | 28.72x |
+| CUDA Prefetch + Page Creation + Mem Advice | 256 | 3979.824 | 28.55x |
+| CUDA Prefetch + Page Creation + Mem Advice | 512 | 3950.001 | 28.77x |
+| CUDA Prefetch + Page Creation + Mem Advice | 1024 | 3956.349 | 28.72x |
+
 ### C. Results for 2²⁸ Elements
+| Kernel | Block Size | Average Time (μs) | Speedup vs C |
+|---|---:|---:|---:|
+| C (Baseline) | - | 444390.058 | 1.00x |
+| x86-64 Assembly | - | 221395.230 | 2.01x |
+| x86-64 SIMD XMM | - | 170132.387 | 2.61x |
+| x86-64 SIMD YMM | - | 150384.397 | 2.96x |
+| CUDA Unified | 256 | 65144.547 | 6.82x |
+| CUDA Unified | 512 | 45842.321 | 9.69x |
+| CUDA Unified | 1024 | 51228.078 | 8.67x |
+| CUDA Prefetch | 256 | 15946.253 | 27.87x |
+| CUDA Prefetch | 512 | 15851.203 | 28.04x |
+| CUDA Prefetch | 1024 | 15821.575 | 28.09x |
+| CUDA Prefetch + Page Creation | 256 | 15965.106 | 27.84x |
+| CUDA Prefetch + Page Creation | 512 | 15868.160 | 28.01x |
+| CUDA Prefetch + Page Creation | 1024 | 15776.598 | 28.17x |
+| CUDA Prefetch + Page Creation + Mem Advice | 256 | 15961.716 | 27.84x |
+| CUDA Prefetch + Page Creation + Mem Advice | 512 | 15866.989 | 28.01x |
+| CUDA Prefetch + Page Creation + Mem Advice | 1024 | 15831.164 | 28.07x |
 
 ## Analysis of Results
 ### A. Analysis of Kernel Execution Time
