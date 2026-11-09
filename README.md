@@ -123,7 +123,20 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 </p>
 
 ## Nsight Systems Profiling for All CUDA Variants
-// put screenshots here //
+### Variant 2: Grid-Stride Loop
+
+**Figure 6.** CUDA API statistics for Variant 2.
+
+<img width="1505" height="735" alt="image" src="https://github.com/user-attachments/assets/60d806af-14d9-4cab-9be8-1191a571d96e" />
+
+**Figure 7.** GPU kernel execution statistics for Variant 2.
+
+<img width="1501" height="412" alt="image" src="https://github.com/user-attachments/assets/9c962c91-5294-41ed-bea3-b8510186a174" />
+
+**Figure 8.** GPU memory-transfer statistics for Variant 2.
+
+<img width="1782" height="581" alt="image" src="https://github.com/user-attachments/assets/1cb73d2e-4f9c-44dc-8efe-c504223007c7" />
+
 
 ## Comparative Execution-Time Analysis
 ### A. Results for 2²⁴ Elements
