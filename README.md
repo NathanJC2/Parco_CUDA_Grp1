@@ -219,7 +219,7 @@ The memory-operation summary recorded 2,568 host-to-device transfers, with a tot
 </p>
 
 ## Comparative Execution-Time Analysis
-### A. Results for 2²⁴ Elements
+### A. Results for 2<sup>20</sup> Elements
 | Kernel | Block Size | Average Time (μs) | Speedup vs C |
 |---|---:|---:|---:|
 | C (Baseline) | - | 1407.891 | 1.00x |
