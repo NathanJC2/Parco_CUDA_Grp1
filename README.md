@@ -484,6 +484,17 @@ Despite its performance advantages, SIMT also has some disadvantages. GPU progra
 </p>
 
 ### F. Comparison of SIMD and SIMT for This Project
+<p align="justify">
+SIMD and SIMT both improve performance by processing multiple data elements in parallel. However, SIMD uses CPU vector instructions to operate on multiple elements at once, while SIMT uses multiple GPU threads to perform the calculations.
+</p>
+
+<p align="justify">
+For our dot-product project, SIMD can be useful for speeding up the calculations on the CPU, while SIMT allows the GPU to handle many vector elements in parallel. Since our project uses CUDA, SIMT is the main approach used in the GPU variants. The performance of these variants also depends on factors such as block size, memory transfers, and the optimization techniques applied.
+</p>
+
+<p align="justify">
+Overall, SIMD and SIMT can both be useful for parallel computations, but their performance depends on the hardware and how the computations are implemented. In our project, comparing the execution times of the CPU baseline and the CUDA variants helps us understand the benefits and overhead of using GPU parallel processing.
+</p>
 
 ## Conclusion
 
