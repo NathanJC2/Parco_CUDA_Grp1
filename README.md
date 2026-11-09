@@ -239,7 +239,7 @@ The memory-operation summary recorded 2,568 host-to-device transfers, with a tot
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 180.042 | 7.82x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 331.567 | 4.25x |
 
-### B. Results for 2²⁶ Elements
+### B. Results for 2<sup>26</sup> Elements
 | Kernel | Block Size | Average Time (μs) | Speedup vs C |
 |---|---:|---:|---:|
 | C (Baseline) | - | 113629.128 | 1.00x |
@@ -259,7 +259,7 @@ The memory-operation summary recorded 2,568 host-to-device transfers, with a tot
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 3950.001 | 28.77x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 3956.349 | 28.72x |
 
-### C. Results for 2²⁸ Elements
+### C. Results for 2<sup>28</sup> Elements
 | Kernel | Block Size | Average Time (μs) | Speedup vs C |
 |---|---:|---:|---:|
 | C (Baseline) | - | 444390.058 | 1.00x |
