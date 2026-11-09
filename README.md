@@ -26,9 +26,10 @@ Program Variants:
 - Variant 2: CUDA program version using a grid-stride loop without prefetch and memory advice
 - Variant 3: CUDA program version using a grid-stride loop with prefetch but without page creation and memory advise
 - Variant 4: CUDA program version using a grid-stride loop with prefetch and page creation but without memory advise
-- Variant 5: CUDA program version using a grid-stride loop with prefetch, page creation, and memory advice
+- Variant 5: CUDA program version using a grid-stride loop with prefetch, page creation, and memory advise
 
 ### AI Usage Declaration
+The group used ChatGPT mainly to help us understand CUDA concepts and how the different optimization techniques work. It also assisted us in debugging our code, checking program correctness, and organizing our results and documentation. All implementations were tested, and the results were verified by the group.
 
 ## Program Output and Correctness Checks
 // put screenshots here //
