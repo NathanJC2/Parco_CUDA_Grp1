@@ -36,22 +36,22 @@ C/C++ Baseline
 
 Figure 1. C/C++ baseline output showing execution times and correctness results for the tested vector sizes.
 
-<img width="598" alt="C/C++ baseline output" src="https://github.com/user-attachments/assets/14a91ee1-7251-45b3-824b-6d55d48f4a82" />
+<img width="678" height="1078" alt="image" src="https://github.com/user-attachments/assets/5a0c0fd0-f775-4b0c-95dc-03d428ce0b56" />
 
 CUDA Variant 2: Grid-Stride Loop
 
 Figure 2. Correctness checks and execution results for CUDA Variant 2 using a grid-stride loop without prefetching or memory advice.
 
 <p>
-  <img width="627" alt="Variant 2 output 1" src="https://github.com/user-attachments/assets/131000ec-5662-4405-9456-8d25b6a00719" />
+  <img width="670" height="1078" alt="image" src="https://github.com/user-attachments/assets/480ca519-e880-419c-b7e0-1f747d6bfc95" />
 </p>
 
 <p>
-  <img width="478" alt="Variant 2 output 2" src="https://github.com/user-attachments/assets/5886ebb8-dffa-4b70-9b55-11c575d9a090" />
+  <img width="668" height="1045" alt="image" src="https://github.com/user-attachments/assets/c0c39db3-322d-4747-9cd6-a16102235a40" />
 </p>
 
 <p>
-  <img width="492" alt="Variant 2 output 3" src="https://github.com/user-attachments/assets/5c8d96e5-7276-4f05-a30a-aa4dadcd0669" />
+  <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/6490c6de-caf8-428e-bd6e-6b52c81d80da" />
 </p>
 
 CUDA Variant 3: Grid-Stride Loop with Prefetching
