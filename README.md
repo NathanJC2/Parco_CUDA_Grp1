@@ -32,17 +32,17 @@ Program Variants:
 The group used ChatGPT mainly to help us understand CUDA concepts and how the different optimization techniques work. It also assisted us in debugging our code, checking program correctness, and organizing our results and documentation. All implementations were tested, and the results were verified by the group.
 
 ## Program Output and Correctness Checks
-C/C++ Baseline
+### Variant 1: C/C++ Baseline
 
-Figure 1. C/C++ baseline output showing execution times and correctness results for the tested vector sizes.
+**Figure 1. C/C++ baseline output showing execution times and correctness results for the tested vector sizes.
 
 <p>
 <img width="648" height="1021" alt="image" src="https://github.com/user-attachments/assets/9ddf4273-7764-4714-a588-7229d05c1d5a" />
 </p>
 
-CUDA Variant 2: Grid-Stride Loop
+### Variant 2: Grid-Stride Loop
 
-Figure 2. Correctness checks and execution results for CUDA Variant 2 using a grid-stride loop without prefetching or memory advice.
+**Figure 2. Correctness checks and execution results for CUDA Variant 2 using a grid-stride loop without prefetching or memory advice.
 
 <p>
   <img width="670" height="1078" alt="image" src="https://github.com/user-attachments/assets/480ca519-e880-419c-b7e0-1f747d6bfc95" />
@@ -56,9 +56,9 @@ Figure 2. Correctness checks and execution results for CUDA Variant 2 using a gr
   <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/6490c6de-caf8-428e-bd6e-6b52c81d80da" />
 </p>
 
-CUDA Variant 3: Grid-Stride Loop with Prefetching
+### Variant 3: Grid-Stride Loop with Prefetching
 
-Figure 3. Correctness checks and execution results for CUDA Variant 3 using a grid-stride loop with prefetching.
+**Figure 3. Correctness checks and execution results for CUDA Variant 3 using a grid-stride loop with prefetching.
 
 <p>
   <img width="671" height="1078" alt="image" src="https://github.com/user-attachments/assets/d6ff9d30-4afd-43e7-8789-ff1ef069fc35" />
@@ -72,9 +72,9 @@ Figure 3. Correctness checks and execution results for CUDA Variant 3 using a gr
   <img width="680" height="1078" alt="image" src="https://github.com/user-attachments/assets/3e6c8e71-5f00-4d13-b600-9feb5f82288e" />
 </p>
 
-CUDA Variant 4: Grid-Stride Loop with Page Creation and Prefetching
+### Variant 4: Grid-Stride Loop with Page Creation and Prefetching
 
-Figure 4. Correctness checks and execution results for CUDA Variant 4 using page creation and prefetching.
+**Figure 4. Correctness checks and execution results for CUDA Variant 4 using page creation and prefetching.
 
 <p>
   <img width="680" height="1070" alt="image" src="https://github.com/user-attachments/assets/0a9d56f4-0565-4cf2-91cc-784cdd644e93" />
@@ -92,9 +92,9 @@ Figure 4. Correctness checks and execution results for CUDA Variant 4 using page
    <img width="680" height="1078" alt="image" src="https://github.com/user-attachments/assets/49327a88-895b-4a59-ae2d-7c92db4972dc" />
 </p>
 
-CUDA Variant 5: Grid-Stride Loop with Page Creation, Prefetching, and Memory Advice
+### Variant 5: Grid-Stride Loop with Page Creation, Prefetching, and Memory Advice
 
-Figure 5. Correctness checks and execution results for CUDA Variant 5 using page creation, prefetching, and memory advice.
+**Figure 5. Correctness checks and execution results for CUDA Variant 5 using page creation, prefetching, and memory advice.
 
 <p>
    <img width="656" height="1078" alt="image" src="https://github.com/user-attachments/assets/6e3922b7-59fb-4a3f-be41-977e95b1875d" />
