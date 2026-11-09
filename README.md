@@ -343,6 +343,18 @@ The comparisons are based on <strong>GPU kernel execution times</strong> and exc
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 3950.001 | 3945.408 | 3958.784 | 28.77x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 3956.349 | 3949.184 | 3985.408 | 28.72x |
 
+<p align="justify">
+The results show that the C/C++ baseline recorded the longest average execution time of 113,629.128 μs, making it the slowest implementation. The x86-64 Assembly version improved performance with an average of 55,515.197 μs, while SIMD XMM and YMM achieved 39,002.567 μs and 34,083.980 μs, respectively. Among the CUDA implementations, Unified Memory recorded average execution times ranging from 11,199.752 μs to 12,368.990 μs. With prefetching enabled, execution times decreased significantly to approximately 3,945–4,071 μs across the different block sizes. This shows that prefetching helped improve CUDA performance by reducing memory-related overhead.
+</p>
+
+<p align="justify">
+For the CUDA Unified Memory implementation, a block size of 512 threads achieved the fastest average execution time of 11,199.752 μs. The same block size also performed best for CUDA Prefetching, recording 3,978.243 μs. For Prefetching + Page Creation, 512 threads achieved 3,945.934 μs, while Prefetching + Page Creation + Memory Advice recorded 3,950.001 μs using the same block size. These results indicate that 512 threads generally provided the best performance across the tested CUDA configurations for this vector size. Increasing the block size to 1024 threads did not result in better performance, suggesting that a larger number of threads per block does not necessarily lead to faster execution.
+</p>
+
+<p align="justify">
+Compared with the C/C++ baseline, x86-64 Assembly achieved a speedup of 2.05x, while SIMD XMM and YMM achieved 2.91x and 3.33x, respectively. The CUDA Unified Memory implementation reached a maximum speedup of 10.15x. Meanwhile, CUDA Prefetching achieved up to 28.56x, Prefetching + Page Creation reached 28.80x, and Prefetching + Page Creation + Memory Advice achieved 28.77x. Among all configurations, CUDA Prefetching + Page Creation with 512 threads recorded the highest speedup of 28.80x, making it the fastest implementation for this vector size.
+</p>
+
 ## Performance Results – 2^28 Elements (268,435,456)
 
 | Kernel | Block Size | Average Time (μs) | Minimum Time (μs) | Maximum Time (μs) | Speedup vs C |
@@ -364,6 +376,17 @@ The comparisons are based on <strong>GPU kernel execution times</strong> and exc
 | CUDA Prefetch + Page Creation + Mem Advice | 512 | 15866.989 | 15855.552 | 15880.704 | 28.01x |
 | CUDA Prefetch + Page Creation + Mem Advice | 1024 | 15831.164 | 15816.992 | 15843.520 | 28.07x |
 
+<p align="justify">
+The results indicate that all optimized implementations outperformed the Sequential C baseline for the 2²⁸ vector size. The C implementation recorded an average execution time of 444,390.058 μs or 444.390 ms. Among the CPU implementations, SIMD YMM achieved the fastest result, with an average execution time of 150,384.397 μs and a speedup of 2.96x. Meanwhile, SIMD XMM recorded 170,132.387 μs (2.61x), followed by the standard x86-64 Assembly implementation at 221,395.230 μs (2.01x). For the CUDA implementations, Unified Memory with a block size of 512 produced the best result, achieving an average execution time of 45,842.321 μs and a speedup of 9.69x over the C baseline. CUDA Prefetching using 1024 threads recorded 15,821.575 μs and a speedup of 28.09x. When page creation was included, the 1024-thread configuration delivered the best performance, with an average execution time of 15,776.598 μs and a speedup of 28.17x. The implementation that also incorporated memory advice achieved 15,831.164 μs and a speedup of 28.07x.
+</p>
+
+<p align="justify">
+The results show that the most effective block size depends on the CUDA implementation. For Unified Memory, 512 threads achieved the lowest average execution time of 45,842.321 μs. In contrast, the prefetch-based implementations generally performed best with 1024 threads. CUDA Prefetching recorded 15,821.575 μs, Prefetching + Page Creation achieved 15,776.598 μs, and Prefetching + Page Creation + Memory Advice recorded 15,831.164 μs. These results indicate that larger block sizes were more effective for the prefetch-based configurations at this vector size. However, increasing the number of threads per block does not always guarantee better performance, since the results also depend on the memory management technique being used.
+</p>
+
+<p align="justify">
+Compared with the C/C++ baseline, x86-64 Assembly achieved a speedup of 2.01x, while SIMD XMM and YMM achieved 2.61x and 2.96x, respectively. CUDA Unified Memory reached a maximum speedup of 9.69x. Meanwhile, CUDA Prefetching achieved up to 28.09x, Prefetching + Page Creation reached 28.17x, and Prefetching + Page Creation + Memory Advice achieved 28.07x. Among all tested configurations, CUDA Prefetching + Page Creation with 1024 threads achieved the highest speedup of 28.17x, making it the fastest implementation for this vector size.
+</p>
 
 ### B. Analysis of Speed Performance Across All Platforms
 | Kernel | Block Size | 2^20 Speedup | 2^26 Speedup | 2^28 Speedup |
