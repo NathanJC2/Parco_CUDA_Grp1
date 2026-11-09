@@ -137,63 +137,79 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 
 <img width="1782" height="581" alt="image" src="https://github.com/user-attachments/assets/1cb73d2e-4f9c-44dc-8efe-c504223007c7" />
 
+<p align="justify">
 Based on the Nsight Systems output, cudaEventSynchronize accounted for most of the CUDA API time, followed by cudaFree and cudaMallocManaged. The GPU kernel summary also shows that dot_product_kernel took almost all of the recorded kernel execution time, while finish_reduction_kernel took very little time in comparison.
+</p>
 
+<p align="justify">
 The memory-operation summary recorded 530,475 host-to-device transfers, with a total transfer size of 14,732.079 MB. This shows that Variant 2 had a large amount of memory-transfer activity. Since this version does not use prefetching, the results provide a useful basis for comparing it with the other variants that use additional memory-management techniques.
+</p>
 
 ### Variant 3: Grid-Stride Loop with Prefetching 
 
-**Figure 9.** OS Runtime Summary for Variant 3.
+**Figure 9.** OS Runtime Summary
 
 <img width="1501" height="822" alt="image" src="https://github.com/user-attachments/assets/0b51593e-35e4-4f72-880c-bd87654727f7" />
 
-**Figure 10.** CUDA API Summary for Variant 3.
+**Figure 10.** CUDA API Summary
 
 <img width="1492" height="452" alt="image" src="https://github.com/user-attachments/assets/8cd26467-dfa3-4b63-8d0a-7571ef93ebf7" />
 
-**Figure 11.** GPU Kernel and Memory-Transfer Statistics for Variant 3.
+**Figure 11.** GPU Kernel and Memory-Transfer Statistics
 
 <img width="1771" height="582" alt="image" src="https://github.com/user-attachments/assets/dab2c3b9-9671-4e70-b44e-36be7aecc0b2" />
 
+<p align="justify">
 The profiling results show that cudaEventSynchronize and cudaMemPrefetchAsync accounted for a large portion of the CUDA API time. Prefetching also introduced additional overhead because the memory transfers had to be scheduled.
+</p>
 
+<p align="justify">
 Compared with Variant 2, the number of recorded host-to-device transfers decreased from 530,475 to 7,704. The total GPU kernel time also decreased from approximately 6.693 seconds to 1.855 seconds in the profiling results. These observations suggest that prefetching helped reduce memory-transfer activity and kernel execution time in the profiled run. However, the additional time spent on prefetching should also be considered when comparing overall performance.
+</p>
 
 ### Variant 4: Grid-Stride Loop with Page Creation and Prefetching 
 
-**Figure 12.** OS Runtime Summary for Variant 4.
+**Figure 12.** OS Runtime Summary
 
 <img width="1501" height="800" alt="image" src="https://github.com/user-attachments/assets/e389bdce-027d-4899-b731-2ce5193df657" />
 
-**Figure 13.** CUDA API Summary for Variant 4.
+**Figure 13.** CUDA API Summary
 
 <img width="1492" height="471" alt="image" src="https://github.com/user-attachments/assets/e5f9b3cd-f394-4166-9168-fa3aac438533" />
 
-**Figure 14.** GPU Kernel and Memory-Transfer Statistics for Variant 4.
+**Figure 14.** GPU Kernel and Memory-Transfer Statistics
 
 <img width="1771" height="581" alt="image" src="https://github.com/user-attachments/assets/9d286a57-a4b1-4d92-8ec6-3d825d5499c8" />
 
+<p align="justify">
 The profiling results show that dot_product_kernel continued to account for almost all of the GPU kernel execution time, while finish_reduction_kernel contributed very little. The CUDA API summary also recorded time spent on cudaMemPrefetchAsync and cudaMallocManaged.
+</p>
 
+<p align="justify">
 The memory-operation summary recorded 2,568 host-to-device transfers, compared with 7,704 in Variant 3. This indicates that the memory-transfer activity differed after page creation was introduced alongside prefetching. However, fewer transfers do not automatically mean better overall performance, since page creation and prefetching also take time. The normal benchmark results are needed to determine whether this version provided an improvement.
+</p>
 
 ### Variant 5: Grid-Stride Loop with Page Creation, Prefetching, and Memory Advice 
 
-**Figure 15.** OS Runtime Summary for Variant 5.
+**Figure 15.** OS Runtime Summary
 
 <img width="1501" height="825" alt="image" src="https://github.com/user-attachments/assets/2cb2e191-9b8e-4b97-828c-d281c177bc0a" />
 
-**Figure 16.** CUDA API Summary for Variant 5.
+**Figure 16.** CUDA API Summary
 
 <img width="1497" height="500" alt="image" src="https://github.com/user-attachments/assets/64ebdf7d-9b44-4595-adfd-83d63a6026e4" />
 
-**Figure 17.** GPU Kernel and Memory-Transfer Statistics for Variant 5.
+**Figure 17.** GPU Kernel and Memory-Transfer Statistics
 
 <img width="1781" height="583" alt="image" src="https://github.com/user-attachments/assets/319d3e3f-8975-43f9-8ec9-009bbbcee045" />
 
+<p align="justify">
 The profiling results show that cudaEventSynchronize remained the largest contributor to CUDA API time, followed by cudaMemPrefetchAsync, cudaFree, and cudaMallocManaged. The GPU kernel summary also shows that dot_product_kernel accounted for nearly all the recorded GPU kernel execution time, while finish_reduction_kernel took very little time.
+</p>
 
+<p align="justify">
 The memory-operation summary recorded 2,568 host-to-device transfers, with a total transfer size of 5,385.486 MB. This was much lower than the transfer activity recorded for Variant 2. However, since Variant 5 also uses memory advice, page creation, and prefetching, their overhead should be considered when evaluating its performance. The benchmark results will help determine whether adding memory advice provided a meaningful improvement over Variant 4.
+</p>
 
 ## Comparative Execution-Time Analysis
 ### A. Results for 2²⁴ Elements
