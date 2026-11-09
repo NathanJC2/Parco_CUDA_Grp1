@@ -94,11 +94,29 @@ CUDA Variant 5: Grid-Stride Loop with Page Creation, Prefetching, and Memory Adv
 
 Figure 5. Correctness checks and execution results for CUDA Variant 5 using page creation, prefetching, and memory advice.
 
-<!-- Insert Variant 5 screenshots here -->
+<p>
+   <img width="656" height="1078" alt="image" src="https://github.com/user-attachments/assets/6e3922b7-59fb-4a3f-be41-977e95b1875d" />
+</p>
 
+<p>
+   <img width="655" height="1078" alt="image" src="https://github.com/user-attachments/assets/1163d997-0806-40ce-a61e-ff9f65e92eca" />
+</p>
 
+<p>
+   <img width="652" height="1078" alt="image" src="https://github.com/user-attachments/assets/1d963d77-14cd-4489-ac25-88fcf76379f4" />
+</p>
 
+<p>
+  
+</p>
 
+<p>
+   
+</p>
+
+<p>
+   
+</p>
   
 ## Nsight Systems Profiling for All CUDA Variants
 // put screenshots here //
