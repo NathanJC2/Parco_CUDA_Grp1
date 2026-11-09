@@ -23,7 +23,7 @@
   
 Program Variants:
 - Variant 1: C/C++ program version
-- Variant 2: CUDA program version using a grid-stride loop without prefetch and memory advice
+- Variant 2: CUDA program version using a grid-stride loop without prefetch and memory advise
 - Variant 3: CUDA program version using a grid-stride loop with prefetch but without page creation and memory advise
 - Variant 4: CUDA program version using a grid-stride loop with prefetch and page creation but without memory advise
 - Variant 5: CUDA program version using a grid-stride loop with prefetch, page creation, and memory advise
