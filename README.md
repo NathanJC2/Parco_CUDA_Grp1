@@ -115,9 +115,13 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
 </p>
 
 <p>
-   
+   <img width="652" height="1078" alt="image" src="https://github.com/user-attachments/assets/46ebfeed-e1c8-440b-a437-721a47467afe" />
 </p>
-  
+
+<p>
+   <img width="655" height="972" alt="image" src="https://github.com/user-attachments/assets/2240b90a-0fbd-43fb-bfeb-cc58ba4678f7" />
+</p>
+
 ## Nsight Systems Profiling for All CUDA Variants
 // put screenshots here //
 
