@@ -465,6 +465,14 @@ Another advantage is that SIMD can make better use of the CPU's vector-processin
 </p>
 
 ### C. Disadvantages of SIMD
+<p align="justify">
+One disadvantage of SIMD is that it works best when the same operation is performed on multiple data elements. If the data requires different operations or conditions, it can be harder to use SIMD efficiently.
+</p>
+
+<p align="justify">
+Another disadvantage is that SIMD depends on the CPU's vector-processing capabilities, so its performance can vary depending on the processor. It may also be less effective when the amount of data is not enough to fully use the available vector instructions. In our dot-product project, SIMD can speed up the calculations, but its performance still depends on how efficiently the CPU processes the vector elements.
+</p>
+
 ### D. Advantages of SIMT
 ### E. Disadvantages of SIMT
 ### F. Comparison of SIMD and SIMT for This Project
