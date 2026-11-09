@@ -122,6 +122,11 @@ Figure 5. Correctness checks and execution results for CUDA Variant 5 using page
    <img width="655" height="972" alt="image" src="https://github.com/user-attachments/assets/2240b90a-0fbd-43fb-bfeb-cc58ba4678f7" />
 </p>
 
+<p align="justify">
+The output shows that the C/C++ baseline and all CUDA variants completed their correctness checks successfully. For the CUDA variants, the results were compared with the CPU reference results by checking the absolute error against the tolerance. All tested configurations passed the correctness checks, which means that the differences between the CPU and CUDA results were within the accepted tolerance.
+The execution times also varied depending on the vector size, block size, and optimization techniques used. These results will be used to compare the performance of the different variants and determine which configurations performed best.
+</p>
+
 ## Nsight Systems Profiling for All CUDA Variants
 ### Variant 2: Grid-Stride Loop 
 
