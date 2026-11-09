@@ -456,6 +456,14 @@ In our dot-product project, SIMD can process multiple pairs of vector elements u
 </p>
 
 ### B. Advantages of SIMD
+<p align="justify">
+One advantage of SIMD is that it can process multiple elements at once instead of handling each element individually. This is useful for our dot-product program because the same multiplication and addition operations are repeated across the two vectors.
+</p>
+
+<p align="justify">
+Another advantage is that SIMD can make better use of the CPU's vector-processing capabilities, which can help reduce execution time. It is also useful for computations that follow the same set of operations on large amounts of data, such as the vector calculations in our project.
+</p>
+
 ### C. Disadvantages of SIMD
 ### D. Advantages of SIMT
 ### E. Disadvantages of SIMT
