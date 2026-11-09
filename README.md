@@ -55,7 +55,7 @@ The group used ChatGPT mainly to help us understand CUDA concepts and how the di
 </p>
 
 <p>
-  ![Uploading image.png…]()
+  <img width="663" height="1078" alt="image" src="https://github.com/user-attachments/assets/39ec69e9-edd7-4c5c-85c7-b06d28031b29" />
 </p>
 
 ### Variant 3: Grid-stride loop with prefetch but without page creation and memory advise
