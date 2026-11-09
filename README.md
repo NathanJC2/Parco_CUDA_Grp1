@@ -444,6 +444,7 @@ One of the main things learned from this project was that adding more optimizati
 <p align="justify">
 Another realization was that increasing the CUDA block size does not always improve performance. In our results, a block size of 256 generally performed better for the prefetch-based implementations at the tested vector size.
 </p>
+
 ## SIMD vs. SIMT in the Dot Product Use Case
 ### A. Differences Between SIMD and SIMT
 ### B. Advantages of SIMD
